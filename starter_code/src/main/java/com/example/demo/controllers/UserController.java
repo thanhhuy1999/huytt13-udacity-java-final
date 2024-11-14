@@ -40,6 +40,13 @@ public class UserController {
     @GetMapping("/{username}")
     public ResponseEntity<User> findByUserName(@PathVariable String username) {
         User user = userRepository.findByUsername(username);
+
+        if (user == null) {
+            log.error("Can not found user with username: " + username);
+        } else {
+            log.info("Found user with username: " + username);
+        }
+
         return user == null ? ResponseEntity.notFound().build() : ResponseEntity.ok(user);
     }
 
@@ -63,7 +70,7 @@ public class UserController {
         userRepository.save(user);
 
         //log info
-        log.error("Create new user successfully");
+        log.info("Create new user successfully");
         return ResponseEntity.ok(user);
     }
 
