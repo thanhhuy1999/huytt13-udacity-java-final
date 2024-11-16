@@ -21,7 +21,7 @@ import com.example.demo.model.requests.CreateUserRequest;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
-    private static final Logger log = LoggerFactory.getLogger(UserController.class);
+    final Logger log = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -70,7 +70,7 @@ public class UserController {
         userRepository.save(user);
 
         //log info
-        log.info("Create new user successfully");
+        log.info("Create new user successfully: " + createUserRequest.getUsername());
         return ResponseEntity.ok(user);
     }
 
